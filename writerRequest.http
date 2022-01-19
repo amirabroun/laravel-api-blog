@@ -1,0 +1,53 @@
+### get all writer
+GET /api/writers
+Host: blog.test
+
+
+### create new wirter
+POST /api/writer
+Host: blog.test
+Content-Type: application/json
+
+{
+    "name": "amir",
+    "email": "amir@gmail.com"
+}
+
+
+### get one writer 
+GET /api/writer/1
+Host: blog.test
+Content-Type: application/json
+
+### update
+PUT  /api/writer/2
+Host: blog.test
+Content-Type: application/json
+
+{
+    "name": "mostafa",
+    "email": "mostafa@gmail.com",
+    "phone": "0901127131",
+    "avatar": "dajfafoi0qfa.jpg"
+}
+
+
+###
+POST /api/writer/4
+Host: blog.test
+Content-Type: application/json
+
+
+
+###
+POST /api/article
+Host: blog.test
+Content-Type: application/json
+
+{
+    "id":	2,
+    "writer_id":	1,
+    "title":	"football",
+    "body":	"In publishing and gral form o on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available.",
+    "image_name" : ""
+}

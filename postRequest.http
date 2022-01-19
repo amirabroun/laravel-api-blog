@@ -1,0 +1,66 @@
+### get all post
+GET /api/posts
+Host: blog.test
+
+### create a new post
+POST /api/post
+Host: blog.test
+Content-Type: application/json
+
+{
+    "writer_id": "?",
+    "title": "?",
+    "body": "?",
+}
+
+
+### update a post
+PUT  /api/post/?
+Host: blog.test
+Content-Type: application/json
+
+{
+    "writer_id": "?",
+    "title": "?",
+    "body": "?",
+}
+
+
+### destroy post
+POST /api/post/?
+Host: blog.test
+Content-Type: application/json
+
+
+### get all post
+GET /api/posts
+Host: blog.test
+
+### create a new post
+POST /api/post
+Host: blog.test
+Content-Type: application/json
+
+{
+    "writer_id": "2",
+    "title": "food",
+    "body": "this post about chini food",
+}
+
+
+### update a post
+PUT  /api/post/2
+Host: blog.test
+Content-Type: application/json
+
+{
+    "writer_id": "2",
+    "title": "geme",
+    "body": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+}
+
+
+### destroy post
+POST /api/post/4
+Host: blog.test
+Content-Type: application/json
