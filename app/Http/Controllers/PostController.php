@@ -30,13 +30,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->input('writer_id'));
-        $validator = Validator::make([
-            'writer_id' => $request->input('writer_id'),
-            'title' => $request->input('title'),
-            'body' => $request->input('email'),
-            'image_path' => $request->input('image_path'),
-        ], [
+        $validator = Validator::make($request->all(), [
             'writer_id' => 'required|numeric',
             'title' => 'required',
             'body' => 'required',
@@ -47,14 +41,12 @@ class PostController extends Controller
             return response()->json($validator->errors());
         }
 
-        Post::create([
+        return Post::create([
             'writer_id' => $request->input('writer_id'),
             'title' => $request->input('title'),
-            'body' => $request->input('email'),
+            'body' => $request->input('body'),
             'image_path' => $request->input('image_path'),
         ]);
-
-        return response()->json(["success" => true]);
     }
 
     /**

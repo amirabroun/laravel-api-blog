@@ -15,15 +15,10 @@ use App\Http\Controllers\TestController;
 |
 */
 
-// Route::get('/', function () {
-//     // return redirect(storage_path('/images/7o7uUg1ZKui7amXdLVrtRC6HwcVG8z34wyTAoZ6I.jpg'));
-//     // return redirect(public_path('storage\images\7o7uUg1ZKui7amXdLVrtRC6HwcVG8z34wyTAoZ6I.jpg'));
-//     return view('welcome');
-// });
+Route::get('/', [TestController::class, 'index']);
 
 Route::get('/upload', function () {
     return view('upload');
 });
 
-Route::get('/', [TestController::class, 'index']);
 Route::post('/upload', [UploadController::class, 'index'])->name('postFile');

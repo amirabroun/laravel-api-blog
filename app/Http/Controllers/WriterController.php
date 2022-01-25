@@ -6,8 +6,6 @@ use App\Models\Writer;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\File;
-
 
 class WriterController extends Controller
 {
@@ -40,34 +38,32 @@ class WriterController extends Controller
             return response()->json($validator->errors());
         }
 
-        Writer::create([
+        return Writer::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'avatar' => $request->input('avatar'),
         ]);
-
-        return response()->json(["success" => true]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Writer  $writer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Writer $id)
+    public function show($id)
     {
-        $posts = Post::query()->where('writer_id', 1)->get(['title'])->toArray();
+        $posts = Post::query()->where('writer_id', $id)->get(['title'])->toArray();
 
         $titles = "";
 
         foreach ($posts as $title) {
-            $titles .= $title['title'] .', ';
+            $titles .= $title['title'] . ', ';
         }
-        
+
         $titles = ['title' => $titles];
-        
+
         return [Writer::find($id), $titles];
     }
 
@@ -84,29 +80,24 @@ class WriterController extends Controller
             'name' => 'required',
             'phone' => 'numeric|unique:writers,phone',
             'email' => 'email|unique:writers,email',
-            'image' => 'unique:writers,image',
+            'avatar' => 'unique:writers,avatar',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
 
+        // $writer = Writer::query()->where('id', $id)->first();
+        
+        // File::delete(storage_path('images/') . $writer->avatar);
+        
         $writer = Writer::find($id);
 
-        $writer->update([
+        return $writer->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'avatar' => $request->input('avatar'),
-        ]);
-
-        // $writer = Writer::query()->where('id', $id)->first();
-
-        // File::delete(storage_path('images/') . $writer->avatar);
-
-        return response()->json([
-            "success" => true,
-            "message" => "File successfully updated",
         ]);
     }
 

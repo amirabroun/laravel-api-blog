@@ -8,40 +8,39 @@ Host: blog.test
 Content-Type: application/json
 
 
-### create new wirter
+### create a new wirter
 POST /api/writer
 Host: blog.test
 Content-Type: application/json
 
 {
-    "name": "mosi",
-    "phone": "09876789",
-    "email": "mosi@gmail.com",
-    "avatar": "public/images/7o7uUg1ZKui7amXdLVrtRC6HwcVG8z34wyTAoZ6I.jpg "
+    "name": "amir",
+    "phone": "098767891",
+    "email": "amir@gmail.com",
+    "avatar": "storage/images/tbVvSlA6LXuOUzYBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
 }
 
-
 ### update
-PUT  /api/writer/1
+PUT  /api/writer/2
 Host: blog.test
 Content-Type: application/json
 
 {
-    "name": "mostafa",
-    "email": "mostafa@gmail.com",
-    "phone": "0901127131",
-    "avatar": "images/QFI1hqsbCN3WGPGKPSxAqswcm3ep53bBbmZiQR4y.jpg"
+    "name": "mostafaa",
+    "email": "mostafaa@gmail.com",
+    "phone": "09011271231",
+    "avatar": "storage/images/tbVvSlA6LXuOUzYBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
 }
 
 
 ### delete writer 
-POST /api/writer/4
+POST /api/writer/1
 Host: blog.test
 Content-Type: application/json
 
 
 
 ### search by name
-GET /api/writer/search/mosi
+GET /api/writer/search/mos
 Host: blog.test
 Content-Type: application/json

@@ -23,7 +23,7 @@ class UploadController extends Controller
             return view('/upload')->with('error', $error);
         }
 
-        $path = Storage::put('/images', new File($request->image));
+        $path = Storage::putFile('public/images', new File($request->image));
 
         return view('upload')->with('path', $path);
     }
