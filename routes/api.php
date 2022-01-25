@@ -23,9 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /* writer */
 Route::get('/writers', [WriterController::class, 'index']);
 
-Route::post('/writer', [WriterController::class, 'store']);
-
 Route::get('/writer/{id}', [WriterController::class, 'show']);
+
+Route::post('/writer', [WriterController::class, 'store']);
 
 Route::put('/writer/{id}', [WriterController::class, 'update']);
 
@@ -36,12 +36,12 @@ Route::get('/writer/search/{name}', [WriterController::class, 'search']);
 /* post */
 Route::get('/posts', [PostController::class, 'index']);
 
+Route::get('/post/{id}', [PostController::class, 'show']);
+
 Route::post('/post', [PostController::class, 'store']);
 
-Route::get('/post/{title}', [PostController::class, 'show']);
+Route::put('/post/{id}', [PostController::class, 'update']);
 
-Route::put('/post/{title}', [PostController::class, 'update']);
-
-Route::post('/post/{title}', [PostController::class, 'destroy']);
+Route::post('/post/{id}', [PostController::class, 'destroy']);
 
 Route::get('/post/search/{name}', [PostController::class, 'search']);

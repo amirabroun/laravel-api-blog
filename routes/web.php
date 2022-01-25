@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     // return redirect(storage_path('/images/7o7uUg1ZKui7amXdLVrtRC6HwcVG8z34wyTAoZ6I.jpg'));
+//     // return redirect(public_path('storage\images\7o7uUg1ZKui7amXdLVrtRC6HwcVG8z34wyTAoZ6I.jpg'));
+//     return view('welcome');
+// });
+
+Route::get('/upload', function () {
+    return view('upload');
 });
+
+Route::get('/', [TestController::class, 'index']);
+Route::post('/upload', [UploadController::class, 'index'])->name('postFile');

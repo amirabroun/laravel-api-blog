@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Writer;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
+
 
 class WriterController extends Controller
 {
@@ -25,7 +29,25 @@ class WriterController extends Controller
      */
     public function store(Request $request)
     {
-        return Writer::create($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'numeric|unique:writers,phone',
+            'email' => 'email|unique:writers,email',
+            'avatar' => 'unique:writers,avatar',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        Writer::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'avatar' => $request->input('avatar'),
+        ]);
+
+        return response()->json(["success" => true]);
     }
 
     /**
@@ -36,34 +58,67 @@ class WriterController extends Controller
      */
     public function show(Writer $id)
     {
-        return Writer::find($id);
+        $posts = Post::query()->where('writer_id', 1)->get(['title'])->toArray();
+
+        $titles = "";
+
+        foreach ($posts as $title) {
+            $titles .= $title['title'] .', ';
+        }
+        
+        $titles = ['title' => $titles];
+        
+        return [Writer::find($id), $titles];
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Writer  $writer
+     * @param  int  $writer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Writer $id)
+    public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'numeric|unique:writers,phone',
+            'email' => 'email|unique:writers,email',
+            'image' => 'unique:writers,image',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
         $writer = Writer::find($id);
 
-        $writer->update();
-        
-        return $writer;
+        $writer->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'avatar' => $request->input('avatar'),
+        ]);
+
+        // $writer = Writer::query()->where('id', $id)->first();
+
+        // File::delete(storage_path('images/') . $writer->avatar);
+
+        return response()->json([
+            "success" => true,
+            "message" => "File successfully updated",
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Writer  $writer
+     * @param  int  $writer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Writer $writer)
+    public function destroy($id)
     {
-        //
+        return Writer::destroy($id);
     }
 
     /**

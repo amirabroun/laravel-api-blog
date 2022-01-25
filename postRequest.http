@@ -2,38 +2,8 @@
 GET /api/posts
 Host: blog.test
 
-### create a new post
-POST /api/post
-Host: blog.test
-Content-Type: application/json
-
-{
-    "writer_id": "?",
-    "title": "?",
-    "body": "?",
-}
-
-
-### update a post
-PUT  /api/post/?
-Host: blog.test
-Content-Type: application/json
-
-{
-    "writer_id": "?",
-    "title": "?",
-    "body": "?",
-}
-
-
-### destroy post
-POST /api/post/?
-Host: blog.test
-Content-Type: application/json
-
-
-### get all post
-GET /api/posts
+### get one post
+GET /api/post/2
 Host: blog.test
 
 ### create a new post
@@ -42,9 +12,10 @@ Host: blog.test
 Content-Type: application/json
 
 {
-    "writer_id": "2",
-    "title": "food",
-    "body": "this post about chini food",
+    "writer_id": "1",
+    "title": "programming",
+    "body": "this post about programmers",
+    "image_path": "images/H6BI1nCwRUxuIAhI5rg0PbA8rbINs7L9KZaroaRv.jpg",
 }
 
 
@@ -54,13 +25,22 @@ Host: blog.test
 Content-Type: application/json
 
 {
-    "writer_id": "2",
-    "title": "geme",
-    "body": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document",
+    "writer_id": "1",
+    "title": "war",
+    "body": "this post about war",
+    "image_path": "images/H6BI1nCwRUxuIAhI5rg0PbA8rbINs7L9KZaroaRv.jpg"
 }
 
 
 ### destroy post
-POST /api/post/4
+POST /api/post/1
 Host: blog.test
 Content-Type: application/json
+
+
+
+### search with title post
+GET /api/post/search/game
+Host: blog.test
+Content-Type: application/json
+

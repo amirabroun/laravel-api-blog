@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->foreignId('writer_id')->constrained();
             $table->string('title');
             $table->longText('body');
-            $table->string('image_address')->nullable();
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

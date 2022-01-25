@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -14,7 +16,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return DB::table('posts as p')
+            ->leftJoin('writers AS w', 'p.writer_id', '=', 'w.id')
+            ->select('p.id', 'w.name as writer_name', 'p.title', 'p.body', 'p.image_path')
+            ->get();
     }
 
     /**
@@ -25,7 +30,31 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        return Post::create($request->all());
+        // dd($request->input('writer_id'));
+        $validator = Validator::make([
+            'writer_id' => $request->input('writer_id'),
+            'title' => $request->input('title'),
+            'body' => $request->input('email'),
+            'image_path' => $request->input('image_path'),
+        ], [
+            'writer_id' => 'required|numeric',
+            'title' => 'required',
+            'body' => 'required',
+            'image_path' => 'unique:posts,image_path',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        Post::create([
+            'writer_id' => $request->input('writer_id'),
+            'title' => $request->input('title'),
+            'body' => $request->input('email'),
+            'image_path' => $request->input('image_path'),
+        ]);
+
+        return response()->json(["success" => true]);
     }
 
     /**
@@ -34,9 +63,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($title)
+    public function show($id)
     {
-        return Post::query()->where('title', $title)->get();
+        return DB::table('posts as p')
+            ->leftJoin('writers as w', 'p.writer_id', '=', 'w.id')
+            ->select('p.id', 'w.name as writer_name', 'p.title', 'p.body', 'p.image_path')
+            ->where('p.id', '=', $id)
+            ->get();
     }
 
     /**
@@ -48,11 +81,19 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $Post = Post::find($id);
+        $validator = Validator::make($request->all(), [
+            'writer_id' => 'required|numeric',
+            'title' => 'required',
+            'body' => 'required',
+        ]);
 
-        $Post->update($request->all());
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
 
-        return $Post;
+        $post = Post::find($id);
+
+        return $post->update($request->all());
     }
 
     /**
@@ -65,7 +106,7 @@ class PostController extends Controller
     {
         return Post::destroy($id);
     }
-    
+
     /**
      * search for post
      *
