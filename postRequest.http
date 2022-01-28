@@ -3,7 +3,7 @@ GET /api/posts
 Host: blog.test
 
 ### get one post
-GET /api/post/11
+GET /api/post/1
 Host: blog.test
 
 ### create a new post

@@ -54,17 +54,19 @@ class WriterController extends Controller
      */
     public function show($id)
     {
-        $posts = Post::query()->where('writer_id', $id)->get(['title'])->toArray();
+        $writer = Writer::find($id);
 
-        $titles = "";
-
-        foreach ($posts as $title) {
-            $titles .= $title['title'] . ', ';
+        if (!$writer) {
+            return ['error' => 'There is no writer with this'];
         }
 
-        $titles = ['title' => $titles];
-
-        return [Writer::find($id), $titles];
+        return [
+            'id' => $writer->id,
+            'name' => $writer->name,
+            'phone' => $writer->phone,
+            'email' => $writer->email,
+            'posts' => $writer->posts,
+        ];
     }
 
     /**
@@ -88,9 +90,9 @@ class WriterController extends Controller
         }
 
         // $writer = Writer::query()->where('id', $id)->first();
-        
+
         // File::delete(storage_path('images/') . $writer->avatar);
-        
+
         $writer = Writer::find($id);
 
         return $writer->update([

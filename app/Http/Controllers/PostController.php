@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -16,10 +15,24 @@ class PostController extends Controller
      */
     public function index()
     {
-        return DB::table('posts as p')
-            ->leftJoin('writers AS w', 'p.writer_id', '=', 'w.id')
-            ->select('p.id', 'w.name as writer_name', 'p.title', 'p.body', 'p.image_path')
-            ->get();
+        $posts = Post::all();
+
+        // return ($posts);
+
+        return [$posts, $posts->writers];
+        // return [
+        //     'id' => $posts->id,
+        //     'writer' => $posts->writer->name,
+        //     'title' => $posts->title,
+        //     'body' => $posts->body,
+        //     'image_path' => $posts->image_path,
+        //     'created_at' => $posts->created_at,
+        //     'updated_at' => $posts->updated_at,
+        // ];
+        // return DB::table('posts as p')
+        //     ->leftJoin('writers AS w', 'p.writer_id', '=', 'w.id')
+        //     ->select('p.id', 'w.name as writer_name', 'p.title', 'p.body', 'p.image_path')
+        //     ->get();
     }
 
     /**
@@ -57,11 +70,17 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return DB::table('posts as p')
-            ->leftJoin('writers as w', 'p.writer_id', '=', 'w.id')
-            ->select('p.id', 'w.name as writer_name', 'p.title', 'p.body', 'p.image_path')
-            ->where('p.id', '=', $id)
-            ->get();
+        $post = Post::find($id);
+
+        return [
+            'id' => $post->id,
+            'title' => $post->title,
+            'writer_name' => $post->writer->name,
+            'body' => $post->body,
+            'image_path' => $post->image_path,
+            'created_at' => $post->created_at,
+            'updated_at' => $post->updated_at,
+        ];
     }
 
     /**

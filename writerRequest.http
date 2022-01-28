@@ -3,7 +3,7 @@ GET /api/writers
 Host: blog.test
 
 ### get one writer 
-GET /api/writer/2
+GET /api/writer/1
 Host: blog.test
 Content-Type: application/json
 
