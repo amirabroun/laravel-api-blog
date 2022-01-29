@@ -3,24 +3,24 @@ GET /api/posts
 Host: blog.test
 
 ### get one post
-GET /api/post/2
+GET /api/posts/1
 Host: blog.test
 
 ### create a new post
-POST /api/post
+POST /api/posts
 Host: blog.test
 Content-Type: application/json
 
 {
     "writer_id": "1",
     "title": "programming",
-    "body": "this post about programmers",
-    "image_path": "images/H6BI1nCwRUxuIAhI5rg0PbA8rbINs7L9KZaroaRv.jpg",
+    "body": "this post about programmersg",
+    "image_path": "storage/images/tbVvSlA6LXuOUzYBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
 }
 
 
 ### update a post
-PUT  /api/post/2
+PUT  /api/posts/2
 Host: blog.test
 Content-Type: application/json
 
@@ -28,19 +28,19 @@ Content-Type: application/json
     "writer_id": "1",
     "title": "war",
     "body": "this post about war",
-    "image_path": "images/H6BI1nCwRUxuIAhI5rg0PbA8rbINs7L9KZaroaRv.jpg"
+    "image_path": "storage/images/tbVvSlA6LXuOUzYBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
 }
 
 
 ### destroy post
-POST /api/post/1
+POST /api/posts/1
 Host: blog.test
 Content-Type: application/json
 
 
 
 ### search with title post
-GET /api/post/search/game
+GET /api/posts/search/pro
 Host: blog.test
 Content-Type: application/json
 

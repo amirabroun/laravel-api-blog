@@ -9,5 +9,14 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['writer_id', 'title', 'body', 'image_address'];
+    protected $table = 'posts';
+
+    protected $primaryKey = 'id';
+
+    protected $fillable = ['id', 'writer_id', 'title', 'body', 'image_path'];
+
+    public function writer()
+    {
+        return $this->hasOne(Writer::class, 'id', 'writer_id');
+    }
 }

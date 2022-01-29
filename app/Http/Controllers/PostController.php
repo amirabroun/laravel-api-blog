@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -16,10 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return DB::table('posts as p')
-            ->leftJoin('writers AS w', 'p.writer_id', '=', 'w.id')
-            ->select('p.id', 'w.name as writer_name', 'p.title', 'p.body', 'p.image_path')
-            ->get();
+        return Post::all();
     }
 
     /**
@@ -30,13 +26,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->input('writer_id'));
-        $validator = Validator::make([
-            'writer_id' => $request->input('writer_id'),
-            'title' => $request->input('title'),
-            'body' => $request->input('email'),
-            'image_path' => $request->input('image_path'),
-        ], [
+        $validator = Validator::make($request->all(), [
             'writer_id' => 'required|numeric',
             'title' => 'required',
             'body' => 'required',
@@ -47,14 +37,12 @@ class PostController extends Controller
             return response()->json($validator->errors());
         }
 
-        Post::create([
+        return Post::create([
             'writer_id' => $request->input('writer_id'),
             'title' => $request->input('title'),
-            'body' => $request->input('email'),
+            'body' => $request->input('body'),
             'image_path' => $request->input('image_path'),
         ]);
-
-        return response()->json(["success" => true]);
     }
 
     /**
@@ -65,11 +53,17 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return DB::table('posts as p')
-            ->leftJoin('writers as w', 'p.writer_id', '=', 'w.id')
-            ->select('p.id', 'w.name as writer_name', 'p.title', 'p.body', 'p.image_path')
-            ->where('p.id', '=', $id)
-            ->get();
+        $post = Post::find($id);
+
+        return [
+            'id' => $post->id,
+            'title' => $post->title,
+            'writer_name' => $post->writer->name,
+            'body' => $post->body,
+            'image_path' => $post->image_path,
+            'created_at' => $post->created_at,
+            'updated_at' => $post->updated_at,
+        ];
     }
 
     /**
@@ -92,6 +86,10 @@ class PostController extends Controller
         }
 
         $post = Post::find($id);
+
+        if (!$post) {
+            return ['error' => 'There is no post with this id'];
+        }
 
         return $post->update($request->all());
     }

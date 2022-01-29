@@ -31,7 +31,7 @@
         @isset($path)
         <div class="m-3">
             <label>
-                {{ $path }}
+                {{ str_replace('public', 'storage', $path) }}
             </label>
         </div>
         @endisset
