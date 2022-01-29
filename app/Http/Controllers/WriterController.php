@@ -57,7 +57,7 @@ class WriterController extends Controller
         $writer = Writer::find($id);
 
         if (!$writer) {
-            return ['error' => 'There is no writer with this'];
+            return ['error' => 'There is no writer with this id'];
         }
 
         return [
@@ -94,6 +94,10 @@ class WriterController extends Controller
         // File::delete(storage_path('images/') . $writer->avatar);
 
         $writer = Writer::find($id);
+
+        if (!$writer) {
+            return ['error' => 'There is no writer with this id'];
+        }
 
         return $writer->update([
             'name' => $request->input('name'),

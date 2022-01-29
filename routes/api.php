@@ -21,27 +21,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 /* writer */
-Route::get('/writers', [WriterController::class, 'index']);
-
-Route::get('/writer/{id}', [WriterController::class, 'show']);
-
-Route::post('/writer', [WriterController::class, 'store']);
-
-Route::put('/writer/{id}', [WriterController::class, 'update']);
-
-Route::post('/writer/{id}', [WriterController::class, 'destroy']);
-
-Route::get('/writer/search/{name}', [WriterController::class, 'search']);
+Route::controller(WriterController::class)->group(function () {
+    Route::get('/writers', 'index');
+    Route::get('/writers/{id}', 'show');
+    Route::post('/writers', 'store');
+    Route::put('/writers', 'update');
+    Route::post('/writers/{id}', 'destroy');
+    Route::get('/writers/search/{name}', 'search');
+});
 
 /* post */
-Route::get('/posts', [PostController::class, 'index']);
-
-Route::get('/post/{id}', [PostController::class, 'show']);
-
-Route::post('/post', [PostController::class, 'store']);
-
-Route::put('/post/{id}', [PostController::class, 'update']);
-
-Route::post('/post/{id}', [PostController::class, 'destroy']);
-
-Route::get('/post/search/{name}', [PostController::class, 'search']);
+Route::controller(PostController::class)->group(function () {
+    Route::get('/posts', 'index');
+    Route::get('/posts/{id}', 'show');
+    Route::post('/posts', 'store');
+    Route::put('/posts', 'update');
+    Route::post('/posts/{id}', 'destroy');
+    Route::get('/posts/search/{name}', 'search');
+});

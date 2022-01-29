@@ -3,11 +3,11 @@ GET /api/posts
 Host: blog.test
 
 ### get one post
-GET /api/post/1
+GET /api/posts/1
 Host: blog.test
 
 ### create a new post
-POST /api/post
+POST /api/posts
 Host: blog.test
 Content-Type: application/json
 
@@ -20,7 +20,7 @@ Content-Type: application/json
 
 
 ### update a post
-PUT  /api/post/2
+PUT  /api/posts/2
 Host: blog.test
 Content-Type: application/json
 
@@ -33,14 +33,14 @@ Content-Type: application/json
 
 
 ### destroy post
-POST /api/post/1
+POST /api/posts/1
 Host: blog.test
 Content-Type: application/json
 
 
 
 ### search with title post
-GET /api/post/search/pro
+GET /api/posts/search/pro
 Host: blog.test
 Content-Type: application/json
 

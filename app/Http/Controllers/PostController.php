@@ -15,24 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-
-        // return ($posts);
-
-        return [$posts, $posts->writers];
-        // return [
-        //     'id' => $posts->id,
-        //     'writer' => $posts->writer->name,
-        //     'title' => $posts->title,
-        //     'body' => $posts->body,
-        //     'image_path' => $posts->image_path,
-        //     'created_at' => $posts->created_at,
-        //     'updated_at' => $posts->updated_at,
-        // ];
-        // return DB::table('posts as p')
-        //     ->leftJoin('writers AS w', 'p.writer_id', '=', 'w.id')
-        //     ->select('p.id', 'w.name as writer_name', 'p.title', 'p.body', 'p.image_path')
-        //     ->get();
+        return Post::all();
     }
 
     /**
@@ -103,6 +86,10 @@ class PostController extends Controller
         }
 
         $post = Post::find($id);
+
+        if (!$post) {
+            return ['error' => 'There is no post with this id'];
+        }
 
         return $post->update($request->all());
     }
