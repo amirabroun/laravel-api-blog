@@ -108,6 +108,6 @@ class __TwigTemplate_09c720460cf3237a9c63865bea829af54cedb46a78f4e15fc744db1d091
 
     public function getSourceContext()
     {
-        return new Source("", "database/structure/index.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\database\\structure\\index.twig");
+        return new Source("", "database/structure/index.twig", "C:\\Users\\01\\Desktop\\laravel-api-blog\\public\\phpmyadmin\\templates\\database\\structure\\index.twig");
     }
 }

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Writer;
-use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class WriterController extends Controller
 {
@@ -16,7 +14,7 @@ class WriterController extends Controller
      */
     public function index()
     {
-        return Writer::all();
+        return Writer::with('posts')->get() ?? 'There is no writer here';
     }
 
     /**
@@ -27,23 +25,25 @@ class WriterController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required',
             'phone' => 'numeric|unique:writers,phone',
             'email' => 'email|unique:writers,email',
             'avatar' => 'unique:writers,avatar',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
-        return Writer::create([
+        $status = Writer::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
-            'avatar' => $request->input('avatar'),
+            'avatar' => $request->input('avatar')
         ]);
+
+        if ($status) {
+            return ['status: success' => 'Writer was successfully created'];
+        }
+
+        return ['status: fail' => 'Error creating new writer'];
     }
 
     /**
@@ -54,19 +54,13 @@ class WriterController extends Controller
      */
     public function show($id)
     {
-        $writer = Writer::find($id);
+        $writer = Writer::with('posts')->find($id);
 
         if (!$writer) {
             return ['error' => 'There is no writer with this id'];
         }
 
-        return [
-            'id' => $writer->id,
-            'name' => $writer->name,
-            'phone' => $writer->phone,
-            'email' => $writer->email,
-            'posts' => $writer->posts,
-        ];
+        return $writer;
     }
 
     /**
@@ -78,33 +72,28 @@ class WriterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'phone' => 'numeric|unique:writers,phone',
-            'email' => 'email|unique:writers,email',
-            'avatar' => 'unique:writers,avatar',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
-        // $writer = Writer::query()->where('id', $id)->first();
-
-        // File::delete(storage_path('images/') . $writer->avatar);
-
         $writer = Writer::find($id);
 
         if (!$writer) {
             return ['error' => 'There is no writer with this id'];
         }
 
-        return $writer->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'avatar' => $request->input('avatar'),
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'numeric|unique:writers,phone',
+            'email' => 'email|unique:writers,email',
+            'avatar' => 'unique:writers,avatar',
         ]);
+
+        // $writer = Writer::query()->where('id', $id)->first();
+
+        // File::delete(storage_path('images/') . $writer->avatar);
+
+        if ($writer->update($request->all())) {
+            return ['status: success' => 'Writer was successfully updated'];
+        }
+
+        return ['status: fail' => 'Writer update encountered an error'];
     }
 
     /**
@@ -115,7 +104,13 @@ class WriterController extends Controller
      */
     public function destroy($id)
     {
-        return Writer::destroy($id);
+        $writer = Writer::find($id);
+
+        if (!$writer) {
+            return ['error' => 'There is no writer with this id'];
+        }
+
+        return (Writer::destroy($id) ? 'Deleting writer completed successfully' : 'There was an error deleting the writer');
     }
 
     /**
@@ -126,6 +121,6 @@ class WriterController extends Controller
      */
     public function search($name)
     {
-        return Writer::query()->where('name', 'like', "%$name%")->get();
+        return (Writer::query()->where('name', 'like', "%$name%")->get() ?? 'There is no writer with this title here');
     }
 }

@@ -11,10 +11,6 @@ class Writer extends Model
 {
     use HasFactory;
 
-    protected $table = 'writers';
-
-    protected $primaryKey = 'id';
-
     protected $fillable = ['id', 'name', 'email', 'phone', 'avatar'];
 
     public function posts()

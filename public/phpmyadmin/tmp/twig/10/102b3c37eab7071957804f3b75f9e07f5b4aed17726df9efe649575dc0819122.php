@@ -82,9 +82,9 @@ class __TwigTemplate_dbc4740d959b2ec95877aabd22781ffef0b71a3317b4446aff52d5f6840
                 echo _gettext("You are using the demo server. You can do anything here, but please do not change root, debian-sys-maint and pma users. More information is available at %s.");
                 // line 25
                 echo "                ";
-                $___internal_f99ac14381e0d9770a9538d2e717be3f76823c5cfe5334222c4bcaf3730a3246_ = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+                $___internal_551e49fb56df9d2a7b799020952bad88cb1316008d6d6d2b7fb732eca3eb7eec_ = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
                 // line 21
-                echo sprintf($___internal_f99ac14381e0d9770a9538d2e717be3f76823c5cfe5334222c4bcaf3730a3246_, "<a href=\"url.php?url=https://demo.phpmyadmin.net/\" target=\"_blank\" rel=\"noopener noreferrer\">demo.phpmyadmin.net</a>");
+                echo sprintf($___internal_551e49fb56df9d2a7b799020952bad88cb1316008d6d6d2b7fb732eca3eb7eec_, "<a href=\"url.php?url=https://demo.phpmyadmin.net/\" target=\"_blank\" rel=\"noopener noreferrer\">demo.phpmyadmin.net</a>");
                 // line 26
                 echo "              </div>
             </div>
@@ -582,6 +582,6 @@ class __TwigTemplate_dbc4740d959b2ec95877aabd22781ffef0b71a3317b4446aff52d5f6840
 
     public function getSourceContext()
     {
-        return new Source("", "home/index.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\home\\index.twig");
+        return new Source("", "home/index.twig", "C:\\Users\\01\\Desktop\\laravel-api-blog\\public\\phpmyadmin\\templates\\home\\index.twig");
     }
 }

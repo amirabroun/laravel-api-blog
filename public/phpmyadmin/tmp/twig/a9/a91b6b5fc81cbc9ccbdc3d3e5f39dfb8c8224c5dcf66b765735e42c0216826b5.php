@@ -190,6 +190,6 @@ class __TwigTemplate_f0ea7b1a77fd0af7bb3834a3cad44554527679f990c109815654775ca8e
 
     public function getSourceContext()
     {
-        return new Source("", "database/structure/check_all_tables.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\database\\structure\\check_all_tables.twig");
+        return new Source("", "database/structure/check_all_tables.twig", "C:\\Users\\01\\Desktop\\laravel-api-blog\\public\\phpmyadmin\\templates\\database\\structure\\check_all_tables.twig");
     }
 }

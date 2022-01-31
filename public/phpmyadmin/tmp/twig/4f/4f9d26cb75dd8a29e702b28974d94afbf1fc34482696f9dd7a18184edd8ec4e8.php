@@ -59,6 +59,6 @@ class __TwigTemplate_e3bda7f430b5a2d1db2dcf2efbd333ed3e50961da42438bdaf7833be4f1
 
     public function getSourceContext()
     {
-        return new Source("", "database/structure/collation_definition.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\database\\structure\\collation_definition.twig");
+        return new Source("", "database/structure/collation_definition.twig", "C:\\Users\\01\\Desktop\\laravel-api-blog\\public\\phpmyadmin\\templates\\database\\structure\\collation_definition.twig");
     }
 }

@@ -12,10 +12,10 @@ Host: blog.test
 Content-Type: application/json
 
 {
-    "writer_id": "1",
+    "writer_id": "2",
     "title": "programming",
     "body": "this post about programmersg",
-    "image_path": "storage/images/tbVvSlA6LXuOUzYBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
+    "image_path": "storage/images/tbVvSlA6LXuOUzYBRssuZ6dWd8T0qdBdOmANkuY9tL.jpg"
 }
 
 

@@ -97,6 +97,6 @@ $context["bookmark"], "getDatabase", [], "method", false, false, false, 15)]]]))
 
     public function getSourceContext()
     {
-        return new Source("", "console/bookmark_content.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\console\\bookmark_content.twig");
+        return new Source("", "console/bookmark_content.twig", "C:\\Users\\01\\Desktop\\laravel-api-blog\\public\\phpmyadmin\\templates\\console\\bookmark_content.twig");
     }
 }

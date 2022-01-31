@@ -13,6 +13,6 @@ class TestController extends Controller
 {
     public function index()
     {
-        return redirect(url('/upload'));
+        return redirect()->route('upload');
     }
 }

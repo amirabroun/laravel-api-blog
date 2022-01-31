@@ -14,10 +14,10 @@ Host: blog.test
 Content-Type: application/json
 
 {
-    "name": "amir",
-    "phone": "098767891",
-    "email": "amir@gmail.com",
-    "avatar": "storage/images/tbVvSlA6LXuOUzYBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
+    "name": "amsir2",
+    "phone": "09871617891",
+    "email": "amis1r@gmail.com",
+    "avatar": "storage/images/lA9dV9URHG4hQBgldVI2lPunvcZVTGx3ubTx43Oi.jpg"
 }
 
 ### update
@@ -29,7 +29,7 @@ Content-Type: application/json
     "name": "mostafaa",
     "email": "mostafaa@gmail.com",
     "phone": "09011271231",
-    "avatar": "storage/images/tbVvSlA6LXuOUzYBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
+    "avatar": "storage/images/tbVvSlA6LXuOUzYsBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
 }
 
 

@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return (Post::with('writer')->get() ?? 'There is no post here');
     }
 
     /**
@@ -26,23 +26,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'writer_id' => 'required|numeric',
             'title' => 'required',
             'body' => 'required',
             'image_path' => 'unique:posts,image_path',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
-        return Post::create([
+        $status = Post::create([
             'writer_id' => $request->input('writer_id'),
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'image_path' => $request->input('image_path'),
         ]);
+
+        if ($status) {
+            return ['status: success' => 'Post was successfully created'];
+        }
+
+        return ['status: fail' => 'Error creating new post'];
     }
 
     /**
@@ -53,17 +55,13 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::with('writer')->find($id);
 
-        return [
-            'id' => $post->id,
-            'title' => $post->title,
-            'writer_name' => $post->writer->name,
-            'body' => $post->body,
-            'image_path' => $post->image_path,
-            'created_at' => $post->created_at,
-            'updated_at' => $post->updated_at,
-        ];
+        if (!$post) {
+            return ['error' => 'There is no post with this id'];
+        }
+
+        return $post;
     }
 
     /**
@@ -75,23 +73,24 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'writer_id' => 'required|numeric',
-            'title' => 'required',
-            'body' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
         $post = Post::find($id);
 
         if (!$post) {
             return ['error' => 'There is no post with this id'];
         }
 
-        return $post->update($request->all());
+        $request->validate([
+            'writer_id' => 'required|numeric',
+            'title' => 'required',
+            'body' => 'required',
+            'image_path' => 'unique:posts,image_path',
+        ]);
+
+        if ($post->update($request->all())) {
+            return ['status: success' => 'Post was successfully updated'];
+        }
+
+        return ['status: fail' => 'Post update encountered an error'];
     }
 
     /**
@@ -102,7 +101,13 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        return Post::destroy($id);
+        $post = Post::find($id);
+
+        if (!$post) {
+            return ['error' => 'There is no post with this id'];
+        }
+
+        return (Post::destroy($id) ? 'Deleting post completed successfully' : 'There was an error deleting the post');
     }
 
     /**
@@ -113,6 +118,6 @@ class PostController extends Controller
      */
     public function search($title)
     {
-        return Post::query()->where('title', 'like', "%$title%")->get();
+        return (Post::query()->with('writer')->where('title', 'like', "%$title%")->get() ?? 'There is no post with this title here');
     }
 }

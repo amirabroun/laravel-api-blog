@@ -19,6 +19,6 @@ Route::get('/', [TestController::class, 'index']);
 
 Route::get('/upload', function () {
     return view('upload');
-});
+})->name('upload');
 
 Route::post('/upload', [UploadController::class, 'index'])->name('postFile');

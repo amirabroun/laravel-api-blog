@@ -9,11 +9,9 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $table = 'posts';
-
-    protected $primaryKey = 'id';
-
     protected $fillable = ['id', 'writer_id', 'title', 'body', 'image_path'];
+
+    protected $hidden = ['writer_id'];
 
     public function writer()
     {

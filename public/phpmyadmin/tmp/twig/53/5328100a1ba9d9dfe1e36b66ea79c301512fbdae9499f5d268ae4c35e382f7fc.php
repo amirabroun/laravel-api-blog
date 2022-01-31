@@ -272,6 +272,6 @@ class __TwigTemplate_3f4003da56eabcc887100e4cc1f4cfcf459577d8fee5c7f6affb9416db9
 
     public function getSourceContext()
     {
-        return new Source("", "navigation/main.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\navigation\\main.twig");
+        return new Source("", "navigation/main.twig", "C:\\Users\\01\\Desktop\\laravel-api-blog\\public\\phpmyadmin\\templates\\navigation\\main.twig");
     }
 }
