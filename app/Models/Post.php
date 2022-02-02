@@ -17,4 +17,11 @@ class Post extends Model
     {
         return $this->hasOne(Writer::class, 'id', 'writer_id');
     }
+
+    // Get all of the comments for post
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
+ 

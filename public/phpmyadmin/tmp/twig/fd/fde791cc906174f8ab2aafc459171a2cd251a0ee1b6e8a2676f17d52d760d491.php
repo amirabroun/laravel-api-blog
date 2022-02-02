@@ -72,6 +72,6 @@ class __TwigTemplate_d317fb3f3d8ccafd0aaf53bf09aef686f8c3cbc8419cccc7d08614bac3f
 
     public function getSourceContext()
     {
-        return new Source("", "display/results/null_display.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\display\\results\\null_display.twig");
+        return new Source("", "display/results/null_display.twig", "C:\\laravel work\\laravel-api-blog\\public\\phpmyadmin\\templates\\display\\results\\null_display.twig");
     }
 }

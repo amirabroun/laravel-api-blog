@@ -114,6 +114,6 @@ class __TwigTemplate_fe4ac1b35fec9f633aececf031e9085cd96199a0ee370ba8b8b8796e464
 
     public function getSourceContext()
     {
-        return new Source("", "table/insert/continue_insertion_form.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\table\\insert\\continue_insertion_form.twig");
+        return new Source("", "table/insert/continue_insertion_form.twig", "C:\\laravel work\\laravel-api-blog\\public\\phpmyadmin\\templates\\table\\insert\\continue_insertion_form.twig");
     }
 }

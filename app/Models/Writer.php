@@ -17,4 +17,10 @@ class Writer extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    // Get all of the comments for writer
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
