@@ -493,6 +493,6 @@ $context["sub_partition"], "getIndexLength", [], "method", false, false, false, 
 
     public function getSourceContext()
     {
-        return new Source("", "table/structure/display_partitions.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\table\\structure\\display_partitions.twig");
+        return new Source("", "table/structure/display_partitions.twig", "C:\\laravel work\\laravel-api-blog\\public\\phpmyadmin\\templates\\table\\structure\\display_partitions.twig");
     }
 }

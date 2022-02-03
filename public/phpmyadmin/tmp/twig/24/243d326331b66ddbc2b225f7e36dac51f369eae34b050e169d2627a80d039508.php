@@ -67,6 +67,6 @@ class __TwigTemplate_28e7b7bef5107da0663eab63ca2d2eb269740fc7ebcad3f9627aa17048b
 
     public function getSourceContext()
     {
-        return new Source("", "config/form_display/group_header.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\config\\form_display\\group_header.twig");
+        return new Source("", "config/form_display/group_header.twig", "C:\\laravel work\\laravel-api-blog\\public\\phpmyadmin\\templates\\config\\form_display\\group_header.twig");
     }
 }

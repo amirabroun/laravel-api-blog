@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Writer;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -14,7 +17,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return Comment::with('commentable')->get();
+        return Comment::query()
+            ->whereHasMorph('commentable', [Post::class, Writer::class])
+            ->with('commentable')
+            ->get();
     }
 
     /**
@@ -25,18 +31,60 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'comment' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'commentable_id' => 'required',
+            'type' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $comment = new Comment([
+            'comment' => $request->input('comment'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'commentable_id' => $request->input('commentable_id'),
+        ]);
+
+        if ($request->input('type') === 'post') {
+            $post = Post::find($request->input('commentable_id'));
+
+            return  $post->comments()->save($comment);
+        } else if ($request->input('type') === 'writer') {
+            $writer = Writer::find($request->input('commentable_id'));
+
+            return $writer->comments()->save($comment);
+        }
+
+        return ['error' => 'The type not supported'];
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show($id)
     {
-        //
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+            return ['error' => 'There is no comment with this id'];
+        }
+
+        return Comment::query()
+            ->whereHasMorph(
+                'commentable',
+                [Post::class, Writer::class]
+            )
+            ->with('commentable')
+            ->where('id', $id)
+            ->get();
     }
 
     /**

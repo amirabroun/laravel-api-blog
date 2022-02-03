@@ -471,6 +471,6 @@ class __TwigTemplate_9a0eebba74a290e6648cdb1052070c0fed793a644dc5245bc1cf0387144
 
     public function getSourceContext()
     {
-        return new Source("", "table/structure/display_table_stats.twig", "D:\\laravelWorkspace\\api-blog\\public\\phpmyadmin\\templates\\table\\structure\\display_table_stats.twig");
+        return new Source("", "table/structure/display_table_stats.twig", "C:\\laravel work\\laravel-api-blog\\public\\phpmyadmin\\templates\\table\\structure\\display_table_stats.twig");
     }
 }
