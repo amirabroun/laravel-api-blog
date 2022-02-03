@@ -1,0 +1,40 @@
+### get all comment
+GET /api/comments
+Host: blog.test
+
+### get one comment 
+GET /api/comments/8
+Host: blog.test
+Content-Type: application/json
+
+
+### create a new comment
+POST /api/comments
+Host: blog.test
+Content-Type: application/json
+
+{
+    "comment": "the post was great",
+    "name": "mosi",
+    "email": "mosi@gmail.com",
+    "type": "post",
+    "commentable_id": "1"
+}
+
+### update
+PUT  /api/comments/1
+Host: blog.test
+Content-Type: application/json
+
+{
+    "name": "mostafaas",
+    "email": "mostafqaa@gmail.com",
+    "phone": "090112712231",
+    "avatar": "storage/images/tbVvSl3A6LXuOUzYsBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
+}
+
+
+### delete comment 
+POST /api/comments/1
+Host: blog.test
+Content-Type: application/json

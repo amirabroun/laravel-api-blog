@@ -45,5 +45,4 @@ Route::controller(CommentController::class)->prefix('comments')->group(function 
     Route::post('/', 'store');
     Route::put('/{id}', 'update');
     Route::post('/{id}', 'destroy');
-    Route::get('/search/{name}', 'search');
 });
