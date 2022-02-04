@@ -15,6 +15,17 @@ class TestController extends Controller
 {
     public function index($id = 12)
     {
+        $commentable = Comment::find(8);
+        dd($commentable);
+        $comment = new Comment([
+            'comment' => 'test for find',
+            'name' => 'no name',
+            'email' => 'no name',
+            'commentable_id' => 1,
+        ]);
+
+        dd(Post::find(1)->comments()->save($comment));
+
         return Comment::query()
             ->whereHasMorph('commentable', [Post::class, Writer::class])
             ->with('commentable')

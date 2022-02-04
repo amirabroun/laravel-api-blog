@@ -51,13 +51,23 @@ class CommentController extends Controller
         ]);
 
         if ($request->input('type') === 'post') {
-            $post = Post::find($request->input('commentable_id'));
+            $status = Post::find($request->input('commentable_id'))->comments()->save($comment);
 
-            return  $post->comments()->save($comment);
+            if ($status) {
+                return ['status: success' => 'The comment is successfully created'];
+            }
+
+            return ['status: fail' => 'The comment is not created'];
         } else if ($request->input('type') === 'writer') {
-            $writer = Writer::find($request->input('commentable_id'));
+            $status = Writer::find($request->input('commentable_id'))->comments()->save($comment);
 
-            return $writer->comments()->save($comment);
+            if ($status) {
+                return ['status: success' => 'The comment is successfully created'];
+            }
+
+            return ['status: fail' => 'The comment is not created'];
+        } else {
+            return ['status: fail' => 'The type unknown'];
         }
 
         return ['error' => 'The type not supported'];
@@ -91,22 +101,44 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+            return ['error' => 'There is no comment with this id'];
+        }
+
+        $request->validate([
+            'comment' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+
+        if ($comment->update($request->all())) {
+            return ['status: success' => 'Comment was successfully updated'];
+        }
+
+        return ['status: fail' => 'Comment update encountered an error'];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+            return ['error' => 'There is no comment with this id'];
+        }
+
+        return (Comment::destroy($id) ? 'Comment successfully deleted' : 'The comment is not delelted');
     }
 }

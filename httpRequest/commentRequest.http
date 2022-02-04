@@ -3,7 +3,7 @@ GET /api/comments
 Host: blog.test
 
 ### get one comment 
-GET /api/comments/8
+GET /api/comments/15
 Host: blog.test
 Content-Type: application/json
 
@@ -14,27 +14,26 @@ Host: blog.test
 Content-Type: application/json
 
 {
-    "comment": "the post was great",
+    "comment": "the post was sucks",
     "name": "mosi",
     "email": "mosi@gmail.com",
-    "type": "post",
+    "type": "posdt",
     "commentable_id": "1"
 }
 
 ### update
-PUT  /api/comments/1
+PUT  /api/comments/8
 Host: blog.test
 Content-Type: application/json
 
 {
+    "comment": "test update method",
     "name": "mostafaas",
-    "email": "mostafqaa@gmail.com",
-    "phone": "090112712231",
-    "avatar": "storage/images/tbVvSl3A6LXuOUzYsBRsuZ6dW8T0qdBdOmANkuY9tL.jpg"
+    "email": "mostafqaa@gmail.com"
 }
 
 
 ### delete comment 
-POST /api/comments/1
+POST /api/comments/2
 Host: blog.test
 Content-Type: application/json
