@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use Doctrine\Inflector\Rules\Word;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 
 class Writer extends Model
 {
@@ -18,9 +16,13 @@ class Writer extends Model
         return $this->hasMany(Post::class);
     }
 
-    // Get all of the comments for writer
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable', 'taggables');
     }
 }
