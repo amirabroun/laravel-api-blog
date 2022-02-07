@@ -10,6 +10,7 @@ class Tag extends Model
     use HasFactory;
 
     protected $fillable = ['id', 'title', 'created_at', 'updated_at'];
+    protected $with = ['posts', 'writers'];
 
     public function posts()
     {
@@ -23,6 +24,20 @@ class Tag extends Model
 
     public function taggable()
     {
-        return $this->morphedByMany(Taggable::class, 'taggable')->withPivot('taggables');
+        return $this->with([
+            'posts' => fn($query) => $query->whereHas('tags'),
+            'writers' => fn($query) => $query->whereHas('tags'),
+        ])->get()->map(function($tag){
+            if(count($tag['posts']) <= 0){
+                unset($tag['posts']);
+            }
+            
+            if(count($tag['writers']) <= 0){
+                unset($tag['writers']);
+            }
+            
+            return $tag;
+        });
     }
+    
 }

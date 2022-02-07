@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,14 +34,15 @@ class PostController extends Controller
             'image_path' => 'unique:posts,image_path',
         ]);
 
-        $status = Post::create([
-            'writer_id' => $request->input('writer_id'),
+        $wirter = Writer::find($request->input('writer_id'));
+        $post = new Post([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'image_path' => $request->input('image_path'),
         ]);
+        
 
-        if ($status) {
+        if (!$wirter->posts()->save($post)) {
             return ['status: success' => 'Post was successfully created'];
         }
 

@@ -25,25 +25,34 @@ class WriterController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required',
             'phone' => 'numeric|unique:writers,phone',
             'email' => 'email|unique:writers,email',
             'avatar' => 'unique:writers,avatar',
         ]);
 
-        $status = Writer::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'avatar' => $request->input('avatar')
+        $writer = new Writer([
+            'name' => $data['name'],
+            'email' => $data['email'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'avatar' => $data['avatar'] ?? null
         ]);
 
-        if ($status) {
-            return ['status: success' => 'Writer was successfully created'];
+        if (!$writer->save()) {
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Error creating new writer'
+            ]);
         }
 
-        return ['status: fail' => 'Error creating new writer'];
+        return response()->json([
+            'status' => 'success',
+            'message' => 'success',
+            'data' => [
+                'writer' => $writer
+            ]
+        ]);
     }
 
     /**

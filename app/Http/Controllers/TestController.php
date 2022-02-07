@@ -16,6 +16,15 @@ class TestController extends Controller
 {
     public function index($id = 2)
     {
+        $tag = Tag::find(3);
+        return $tag->taggable();
+        $comment = Comment::with('commentable')->find(8)->loadMorph('commentable', [
+            Post::class => ['comments', 'writer'],
+            Writer::class => ['tags', 'posts']
+        ]);
+        
+        return $comment->toJson();
+        $comments = Comment::commentable()->get()->dd();
         dd(Tag::query()
             ->with(['taggable' => function (MorphTo $morphTo) {
                 $morphTo->morphWith([

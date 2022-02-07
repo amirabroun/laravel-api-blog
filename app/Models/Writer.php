@@ -10,6 +10,7 @@ class Writer extends Model
     use HasFactory;
 
     protected $fillable = ['id', 'name', 'email', 'phone', 'avatar'];
+    protected $hidden = ['id']; 
 
     public function posts()
     {
