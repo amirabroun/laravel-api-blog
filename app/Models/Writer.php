@@ -23,6 +23,6 @@ class Writer extends Model
 
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable', 'taggables');
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 }

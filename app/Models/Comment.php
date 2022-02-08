@@ -11,16 +11,16 @@ class Comment extends Model
 
     protected $fillable = ['comment', 'name', 'email', 'commentable_id', 'commentable_type'];
 
-    protected $hidden = ['commentable_id', 'commentable_type'];
+    protected $hidden = ['id', 'commentable_id', 'commentable_type'];
 
     public function post()
     {
-        return $this->hasOne(Post::class, 'id', 'commentable_id');
+        return $this->belongsTo(Post::class);
     }
 
     public function writer()
     {
-        return $this->hasOne(Writer::class, 'id', 'commentable_id');
+        return $this->belongsTo(Writer::class);
     }
 
     public function commentable()

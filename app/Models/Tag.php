@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Tag extends Model
 {
@@ -19,10 +20,5 @@ class Tag extends Model
     public function writers()
     {
         return $this->morphedByMany(Writer::class, 'taggable');
-    }
-
-    public function taggable()
-    {
-        return $this->morphedByMany(Taggable::class, 'taggable')->withPivot('taggables');
     }
 }
