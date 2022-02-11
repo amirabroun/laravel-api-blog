@@ -24,12 +24,12 @@ class PostController extends Controller
         ]);
 
         $post = new Post([
-            'title' => $request->input('title'),
-            'body' => $request->input('body'),
-            'image_path' => $request->input('image_path'),
+            'title' => $request->title,
+            'body' => $request->body,
+            'image_path' => $request->image_path,
         ]);
 
-        $writer =  Writer::find($request->input('writer_id'));
+        $writer =  Writer::find($request->writer_id);
 
         if ($writer->posts()->save($post)) {
             return ['status: success' => 'Post was successfully created'];

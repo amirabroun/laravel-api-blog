@@ -1,0 +1,37 @@
+version: "3"
+services:
+    mysql:
+        image: 'mysql'
+        container_name: mysql
+        ports:
+            - 3030:3306
+        environment:
+            MYSQL_USERNAME: 'root'
+            MYSQL_PASSWORD: 'password'
+        volumes:
+            - 'sailmysql:/var/lib/mysql'
+        networks:
+            - sail
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping" ]
+            retries: 3
+            timeout: 5s
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        links:
+            - mysql:mysql
+        ports:
+            - 8080:80
+        environment:
+            MYSQL_USERNAME: "root"
+            MYSQL_ROOT_PASSWORD: "password"
+            PMA_HOST: mysql
+        networks:
+            - sail
+networks:
+    sail:
+        driver: bridge
+volumes:
+    sailmysql:
+        driver: local

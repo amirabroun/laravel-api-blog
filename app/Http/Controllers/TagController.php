@@ -24,22 +24,22 @@ class TagController extends Controller
             'title' => 'required|string',
         ]);
 
-        if ($request->input('related')) {
+        if ($request->related) {
             $request->validate([
                 'taggable_id' => 'required|numeric',
             ]);
         }
 
-        $tag = Tag::query()->where('title', $request->input('title'))->first();
+        $tag = Tag::query()->where('title', $request->title)->first();
 
         if (!$tag) {
             $tag = new Tag([
-                'title' => $request->input('title')
+                'title' => $request->title
             ]);
         }
 
-        if ($request->input('related') === 'post') {
-            $post = Post::find($request->input('taggable_id'));
+        if ($request->related === 'post') {
+            $post = Post::find($request->taggable_id);
 
             if (!$post->tags()->save($tag)) {
                 return [
@@ -51,8 +51,8 @@ class TagController extends Controller
                 'status: ' => 'success',
                 'data: ' => [$post, $tag]
             ];
-        } else if ($request->input('related') === 'writer') {
-            $writer = Writer::find($request->input('taggable_id'));
+        } else if ($request->related === 'writer') {
+            $writer = Writer::find($request->taggable_id);
 
             if ($writer->tags()->save($tag)) {
                 return [
@@ -97,7 +97,7 @@ class TagController extends Controller
             'title' => 'required|unique:tags,title',
         ]);
 
-        if (!$tag->update(['title' => $request->input('title')])) {
+        if (!$tag->update(['title' => $request->title])) {
             return ['status: fail' => 'Tag update encountered an error'];
         }
 

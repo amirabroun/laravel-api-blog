@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Passport\HasApiTokens;
 
 class Writer extends Model
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
-    protected $fillable = ['id', 'name', 'email', 'phone', 'avatar'];
+    protected $fillable = ['name', 'password', 'email', 'phone', 'avatar'];
 
     public function posts()
     {

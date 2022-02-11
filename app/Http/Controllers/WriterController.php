@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Writer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class WriterController extends Controller
 {
-
     public function index()
     {
         return Writer::with(['posts', 'comments', 'tags'])->get();
@@ -26,13 +28,14 @@ class WriterController extends Controller
         ]);
 
         $writer = new Writer([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'avatar' => $request->input('avatar')
+            'name' => $request->name,
+            'password' => Hash::make($request->password),
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'avatar' => $request->avatar
         ]);
 
-        if (!$writer) {
+        if (!$writer->save()) {
             return ['status: fail' => 'Error creating new writer'];
         }
 

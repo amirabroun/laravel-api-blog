@@ -3,7 +3,10 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\WriterController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
+use App\Models\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,3 +59,8 @@ Route::controller(TagController::class)->prefix('tags')->group(function () {
     Route::put('/{id}', 'update');
     Route::post('/{id}', 'destroy');
 });
+
+Route::post('/q', [TestController::class, 'index']);
+
+Route::post('/signin', [UserController::class, 'signIn']);
+Route::post('/signup', [UserController::class, 'signUp']);

@@ -32,18 +32,18 @@ class CommentController extends Controller
         ]);
 
         $comment = new Comment([
-            'comment' => $request->input('comment'),
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'commentable_id' => $request->input('commentable_id'),
+            'comment' => $request->comment,
+            'name' => $request->name,
+            'email' => $request->email,
+            'commentable_id' => $request->commentable_id,
         ]);
 
-        if ($request->input('related') === 'post') {
-            if (!Post::find($request->input('commentable_id'))->comments()->save($comment)) {
+        if ($request->related === 'post') {
+            if (!Post::find($request->commentable_id)->comments()->save($comment)) {
                 return ['status: fail' => 'The comment is not created'];
             }
-        } else if ($request->input('related') === 'writer') {
-            if (!Writer::find($request->input('commentable_id'))->comments()->save($comment)) {
+        } else if ($request->related === 'writer') {
+            if (!Writer::find($request->commentable_id)->comments()->save($comment)) {
                 return ['status: fail' => 'The comment is not created'];
             }
         } else {
