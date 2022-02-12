@@ -6,7 +6,6 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
-use App\Models\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -62,5 +61,9 @@ Route::controller(TagController::class)->prefix('tags')->group(function () {
 
 Route::post('/q', [TestController::class, 'index']);
 
-Route::post('/signin', [UserController::class, 'signIn']);
-Route::post('/signup', [UserController::class, 'signUp']);
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::post('/register', [UserController::class, 'register']);
+
+Route::middleware('auth:api')->controller(UserController::class)->prefix('users')->group(function () {
+    Route::get('/', 'index');
+});

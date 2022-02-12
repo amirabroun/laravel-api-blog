@@ -26,7 +26,6 @@ class TestController extends Controller
 {
     public function index(Request $request, $id = 2)
     {
-        dd();
         $user = User::where('name', $request->name)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {

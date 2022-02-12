@@ -31,11 +31,15 @@ class PostController extends Controller
 
         $writer =  Writer::find($request->writer_id);
 
-        if ($writer->posts()->save($post)) {
-            return ['status: success' => 'Post was successfully created'];
+        if (!$writer->posts()->save($post)) {
+            return ['status: fail' => 'Error creating new post'];
         }
 
-        return ['status: fail' => 'Error creating new post'];
+        return [
+            'status: success' => 'Post was successfully created',
+            'post' => $post,
+            'writer' => $writer
+        ];
     }
 
     public function show($id)
@@ -85,12 +89,6 @@ class PostController extends Controller
         return (Post::destroy($id) ? 'Deleting post completed successfully' : 'There was an error deleting the post');
     }
 
-    /**
-     * search for post
-     *
-     * @param  str  $name
-     * @return \Illuminate\Http\Response
-     */
     public function search($title)
     {
         return (Post::query()->with(['writer', 'comments', 'tags'])->where('title', 'like', "%$title%")->get() ?? 'There is no post with this title here');

@@ -11,7 +11,12 @@ use PhpMyAdmin\Config\Validator;
 
 class UserController extends Controller
 {
-    public function signIn(Request $request)
+    public function index()
+    {
+        return User::all();
+    }
+
+    public function login(Request $request)
     {
         $data = $request->validate([
             'name' => 'required',
@@ -30,7 +35,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function signUp(Request $request)
+    public function register(Request $request)
     {
         $request->validate([
             'name' => 'required',
